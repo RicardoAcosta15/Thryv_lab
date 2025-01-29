@@ -4,24 +4,37 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Laboratorio Día 1</title>
-    <style>
-        .error { 
-            color: red; 
-            display: none; 
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <div class="container"></div>
     <h1>Laboratorio: Introducción a JavaScript</h1>
-    <p>Escribe dos números para realizar operaciones:</p>
-    <input id="numero1" type="number" placeholder="Número 1" />
-    <input id="numero2" type="number" placeholder="Número 2" />
+    <p class="calculator-description">
+      Escribe dos números para realizar operaciones:
+    </p>
+
+    <div class="input-container">
+      <input id="numero1" type="number" placeholder="Número 1" />
+      <input id="numero2" type="number" placeholder="Número 2" />
+    </div>
+
     <p id="error" class="error">Error: Por favor ingrese números válidos</p>
-    <button id="sumar">Sumar</button>
-    <button id="restar">Restar</button>
-    <button id="multiplicar">Multiplicar</button>
-    <button id="dividir">Dividir</button>
+
+    <div class="button-container">
+      <button id="sumar">Sumar</button>
+      <button id="restar">Restar</button>
+      <button id="multiplicar">Multiplicar</button>
+      <button id="dividir">Dividir</button>
+    </div>
+
     <p id="resultado">Resultado:</p>
+
+    <div id="pokemon-container" class="pokemon-container">
+      <h2>Pokémon encontrado:</h2>
+      <p id="pokemon-name"></p>
+      <img id="pokemon-image" class="pokemon-image" alt="Pokemon" />
+    </div>
+
     <script src="script.js"></script>
   </body>
 </html>
