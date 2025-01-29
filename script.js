@@ -13,7 +13,7 @@ const pokemonImage = document.getElementById("pokemon-image");
 
 // Función para validar inputs
 function validarInputs() {
-    // Expresión regular para validar números (enteros o decimales)
+    // Expresión regular para validar números
     const numeroRegex = /^-?\d*\.?\d+$/;
     
     // Verificar si los campos están vacíos o no son números válidos
@@ -25,6 +25,12 @@ function validarInputs() {
     
     error.style.display = 'none';
     return true;
+}
+
+// Función para limpiar inputs
+function limpiarInputs() {
+    numero1.value = '';
+    numero2.value = '';
 }
 
 // Función para buscar Pokémon
@@ -58,6 +64,7 @@ async function buscarPokemon(numero) {
 function actualizarResultado(valor) {
     resultado.textContent = `Resultado: ${valor}`;
     buscarPokemon(valor);
+    limpiarInputs(); // Limpiamos inputs después de mostrar el resultado
 }
 
 
@@ -85,7 +92,7 @@ function multiplicar() {
 // Función para dividir dos números
 function dividir() {
     if (!validarInputs()) return;
-    
+
     // Verificar división por cero
     if (parseFloat(numero2.value) === 0) {
         error.textContent = "Error: No se puede dividir por cero";
