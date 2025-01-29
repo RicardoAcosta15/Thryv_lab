@@ -7,6 +7,9 @@ const multiplicarBtn = document.getElementById("multiplicar");
 const dividirBtn = document.getElementById("dividir");
 const resultado = document.getElementById("resultado");
 const error = document.getElementById("error");
+const pokemonContainer = document.getElementById("pokemon-container");
+const pokemonName = document.getElementById("pokemon-name");
+const pokemonImage = document.getElementById("pokemon-image");
 
 // Función para validar inputs
 function validarInputs() {
@@ -24,30 +27,65 @@ function validarInputs() {
     return true;
 }
 
+// Función para buscar Pokémon
+async function buscarPokemon(numero) {
+    try {
+        // Asegurarse de que el número sea positivo y entero
+        const pokemonId = Math.abs(Math.round(numero));
+        
+        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`);
+        
+        if (!response.ok) {
+            throw new Error('Pokemon no encontrado');
+        }
+
+        const data = await response.json();
+        
+        // Mostrar el Pokémon
+        pokemonContainer.style.display = 'block';
+        pokemonName.textContent = `#${pokemonId} - ${data.name.toUpperCase()}`;
+        pokemonImage.src = data.sprites.front_default;
+        pokemonImage.alt = data.name;
+    } catch (error) {
+        pokemonContainer.style.display = 'block';
+        pokemonName.textContent = `No hay Pokémon con el ID ${Math.abs(Math.round(numero))}`;
+        pokemonImage.src = '';
+        pokemonImage.alt = 'Pokemon no encontrado';
+    }
+}
+
+// Función para actualizar resultado y buscar Pokémon
+function actualizarResultado(valor) {
+    resultado.textContent = `Resultado: ${valor}`;
+    buscarPokemon(valor);
+}
+
+
 // Función para sumar dos números
 function sumar() {
     if (!validarInputs()) return;
     const suma = parseFloat(numero1.value) + parseFloat(numero2.value);
-    resultado.textContent = `Resultado: ${suma}`;
+    actualizarResultado(suma);
 }
 
 // Función para restar dos números
 function restar() {
     if (!validarInputs()) return;
     const resta = parseFloat(numero1.value) - parseFloat(numero2.value);
-    resultado.textContent = `Resultado: ${resta}`;
+    actualizarResultado(resta);
 }
 
 // Función para multiplicar dos números
 function multiplicar() {
     if (!validarInputs()) return;
     const multiplicacion = parseFloat(numero1.value) * parseFloat(numero2.value);
-    resultado.textContent = `Resultado: ${multiplicacion}`;
+    actualizarResultado(multiplicacion);
 }
 
 // Función para dividir dos números
 function dividir() {
     if (!validarInputs()) return;
+    
     // Verificar división por cero
     if (parseFloat(numero2.value) === 0) {
         error.textContent = "Error: No se puede dividir por cero";
@@ -55,7 +93,7 @@ function dividir() {
         return;
     }
     const division = parseFloat(numero1.value) / parseFloat(numero2.value);
-    resultado.textContent = `Resultado: ${division}`;
+    actualizarResultado(division);
 }
 
 // Event Listeners para botones
